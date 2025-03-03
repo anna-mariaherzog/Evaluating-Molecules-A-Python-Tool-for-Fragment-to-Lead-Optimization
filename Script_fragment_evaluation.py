@@ -528,7 +528,7 @@ check_file_exists(output_csv_summary, "Results summary - .csv")
 x_column = 'Affinity Scorepose'
 y_column = 'Affinity Smina'
 plt.scatter(dfOut[x_column], dfOut[y_column], marker='s', s=10, color='k') # black squares
-plt.title(initial_molecule+plot_title)
+plt.title(initial_molecule)
 plt.xlabel('ScorePose', fontsize=30)
 plt.ylabel('Smina', fontsize=30)
 plt.axis((-20, 10, -20, 50))
