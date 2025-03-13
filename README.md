@@ -179,7 +179,11 @@ The following checks are performed at the start of the script run to ensure that
 
 **Anna-Maria Herzog**                  
 Email: <anna-maria.herzog@uni-hohenheim.de>                       
-LinkedIn: https://www.linkedin.com/in/anna-maria-herzog-35411b240/              
+LinkedIn: https://www.linkedin.com/in/anna-maria-herzog-35411b240/  
+
+Institute of Biology, Department of Cellular Microbiology-190i
+University of Hohenheim
+70599 Stuttgart - Germany
 
 <br>
 
@@ -218,7 +222,7 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Acknowledgements
 
-- We gratefully acknowledge the free usage of OpenEye (https://docs.eyesopen.com ) software for academics.
+- We gratefully acknowledge the free usage of OpenEye (https://docs.eyesopen.com ) software for academics, and funding from the Else Kröner-Fresenius Stiftung (to Prof. Dr. Julia Steuber and PD Dr. Günter Fritz).
 
 
 
