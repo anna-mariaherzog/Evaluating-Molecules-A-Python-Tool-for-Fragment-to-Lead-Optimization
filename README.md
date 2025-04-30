@@ -187,6 +187,12 @@ University of Hohenheim
 
 <br>
 
+## Cite this project
+
+If you use this code, please cite:
+
+>       Anna-Maria Herzog (2025). Evaluating-Molecules-A-Python-Tool-for-Fragment-to-Lead-Optimization. Zenodo. https://doi.org/10.5281/zenodo.15308775 
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
