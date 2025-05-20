@@ -26,6 +26,7 @@ import matplotlib.pyplot as plt
 import importlib.util
 import time
 import glob
+import re
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -364,30 +365,57 @@ def readScore(path):
     try:
         with open(path) as text:
             for line in text:
-                if line[0]!="T":
-                    a = str(line.split('	')[2])
-                    return float(a) #float to get floating point number from Affinity text string
-    except:
-        return "Affinity Scorepose"
- 
- 
+                if not line.startswith("T"): # lines starting with tap instead of "T"
+                    parts = line.split('\t')
+                    if len(parts) > 2:
+                        return float(parts[2]) # float to get floating point number from Affinity text string
+                    
+    except Exception as e:
+        print(f"Error reading file {path}: {e}")
+    return "Affinity Scorepose"
+
+def extract_filename_short(filename):
+    # initial molecule
+    if initial_molecule and f"scorepose_{initial_molecule}" in filename:
+        return initial_molecule
+        
+    # for filenames without conformation number at the end
+    match_no_conformation = re.match(r"^scorepose_(.+)_score\.txt$", filename)
+    if match_no_conformation and not re.search(r"_\d+_score\.txt$", filename):
+        return match_no_conformation.group(1)
+    
+    # for filename with conformation number
+    match_with_conformation = re.match(r"^scorepose_(.+)_\d+_score\.txt$", filename)
+    if match_with_conformation:
+        return match_with_conformation.group(1)
+    
+    raise ValueError(f"Unknown file format: {filename}")
+
+file_names = [
+    fn for fn in os.listdir(target_folder+"/scorepose")
+    if os.path.isfile(os.path.join(target_folder+"/scorepose", fn)) and fn.endswith(".txt")
+]
+
 # write molecule names and ScorePose Affinities in one Scorepose.csv file
-file_names = ["scorepose_Molecule_number_"] # needed for later split of scorepose_ at beginning an _conformation number_ at the end
-file_names.extend([filename for filename in os.listdir(target_folder+"/scorepose") if os.path.isfile(os.path.join(target_folder+"/scorepose/", filename)) and filename[-1]=="t"]) # takes only the .txt files not the oeb.gz files (last letter "t")
 scorepose_csv = target_folder+"/scorepose/scorepose_affinities.csv"
- 
- 
+  
 with open(scorepose_csv, mode='w', newline='') as file:
      writer = csv.writer(file)
+     writer.writerow(["Molecule", "Affinity Scorepose"])
      for filename in file_names:
          path = target_folder+"/scorepose/"+filename
-         Affinity_Scorepose = readScore(path) # function defined above is called
-         filename_short = filename.rsplit("_",2)[0].split("_", 1)[1] # removes scorepose at the begining and Conformationnumber_score at the end of the filename
+         Affinity_Scorepose = readScore(path)         
+         try:
+            filename_short = extract_filename_short(filename)
+         except ValueError as e:
+            print(e)
+            continue
          writer.writerow([filename_short,Affinity_Scorepose])
 
 output_scorepose_affinities = ""+target_folder+"/scorepose/scorepose_affinities.csv"
 check_file_exists(output_scorepose_affinities, "ScorePose")
 print("ScorePose is finished")
+
 
 #################
 ### Openbabel ###
@@ -434,7 +462,7 @@ def readSmina(path):
         return "Affinity Smina"
 
             
-# write molecule names and ScorePose Affinities in one Smina.csv file
+# write molecule names and Smina Affinities in one Smina.csv file
 file_names = ["Molecule"]
 file_names.extend([filename for filename in os.listdir(target_folder+"/smina") if os.path.isfile(os.path.join(target_folder+"/smina/", filename))]) 
 smina_csv = target_folder+"/smina/smina_affinities.csv"
