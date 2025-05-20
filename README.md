@@ -74,6 +74,7 @@ Packages not included in the standard Python library are labeled for installatio
    - `importlib.util`
    - `time`
    - `glob`
+   - `re`
 
 #### Additional Tools
 
@@ -181,8 +182,8 @@ The following checks are performed at the start of the script run to ensure that
 Email: <anna-maria.herzog@uni-hohenheim.de>                       
 LinkedIn: https://www.linkedin.com/in/anna-maria-herzog-35411b240/  
 
-Institute of Biology, Department of Cellular Microbiology-190i
-University of Hohenheim
+Institute of Biology, Department of Cellular Microbiology - 190i   
+University of Hohenheim    
 70599 Stuttgart - Germany
 
 <br>
